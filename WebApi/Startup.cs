@@ -29,11 +29,11 @@ namespace WebApi
             services.AddCors();
 
             // MS SQL for production
-            // Making the connecting string to the SQL SERVER where there MUST be a TABLE with the Name Users 
-            // In DataContext the mapping are displayed !
+            
+
+            // Note: For GitHub
              var connection = @"Data source=yourservername;initial catalog=yourdatabasename;user id=yourusername;password=yourpassword;";
              services.AddDbContext<DataContext>(options => options.UseSqlServer(connection));
-            
 
             // InMemory DB for testing
             // services.AddDbContext<DataContext>(x => x.UseInMemoryDatabase("TestDb"));
