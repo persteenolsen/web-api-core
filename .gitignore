@@ -7,6 +7,11 @@
 *.userosscache
 *.sln.docstates
 
+## Note: Could prevent the DB connection to be visisble at GitHub by Startup.cs
+## However - it is done by replacing the cridentials with fake info in Startup.cs
+## Startup.cs
+
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

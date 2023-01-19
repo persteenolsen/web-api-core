@@ -28,12 +28,11 @@ namespace WebApi
         {
             services.AddCors();
 
-            // MS SQL for production
-            
+           
 
             // Note: For GitHub
-             var connection = @"Data source=yourservername;initial catalog=yourdatabasename;user id=yourusername;password=yourpassword;";
-             services.AddDbContext<DataContext>(options => options.UseSqlServer(connection));
+            //var connection = @"Data source=yourservername;initial catalog=yourdatabasename;user id=yourusername;password=yourpassword;";
+            // services.AddDbContext<DataContext>(options => options.UseSqlServer(connection));
 
             // InMemory DB for testing
             // services.AddDbContext<DataContext>(x => x.UseInMemoryDatabase("TestDb"));
