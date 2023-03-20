@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using WebApi.Services;
 using WebApi.Entities;
+using WebApi.Helpers;
 
 namespace WebApi.Controllers
 {
@@ -29,6 +30,25 @@ namespace WebApi.Controllers
             _postService = postService;
         }
 
+        // Only a User with the Admin role is able to create new Users
+        [HttpPost("")]
+        public IActionResult Create([FromBody]Post post)
+        {
+                       
+            try
+            {
+                // save 
+                _postService.Create(post);
+                return Ok(post);
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+
         // Returning the List of Posts from the PostService - The Angular Client is sending a http get request 
         [HttpGet]
         public IActionResult GetAll()
@@ -42,6 +62,13 @@ namespace WebApi.Controllers
         {
             var post = _postService.GetById(id);
             return Ok(post);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _postService.Delete(id);
+            return Ok();
         }
     }
 }

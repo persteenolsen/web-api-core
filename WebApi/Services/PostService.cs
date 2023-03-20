@@ -17,6 +17,8 @@ namespace WebApi.Services
     {
         IEnumerable<Post> GetAll();
         Post GetById(int id);
+        void Delete(int id);
+        Post Create(Post post);
     }
 
     // The Interface - ready to be accessed by the controller  
@@ -39,6 +41,19 @@ namespace WebApi.Services
             _context = context;
         }
 
+        public Post Create(Post post)
+        {
+           // validation of the title
+           // if (string.IsNullOrWhiteSpace(title))
+           //    throw new AppException("Title is required");
+
+           
+            _context.Posts.Add(post);
+            _context.SaveChanges();
+
+            return post;
+        }
+
         public IEnumerable<Post> GetAll()
         {
             return _context.Posts;
@@ -50,14 +65,17 @@ namespace WebApi.Services
             return _context.Posts.Find(id);
         }
 
-        /* public IEnumerable<Post> GetAll()
-         {
-             // returning all the Posts
-             return _posts;
-         } 
-         */
+        public void Delete(int id)
+        {
+            var post = _context.Posts.Find(id);
+            if (post != null)
+            {
+                _context.Posts.Remove(post);
+                _context.SaveChanges();
+            }
+        }
 
-
+       
 
 
     }
