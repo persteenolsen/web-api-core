@@ -54,6 +54,11 @@ namespace WebApi.Controllers
             {
                 // save 
                 _postService.Update(id, post);
+
+                // Make sure to return the id submitted - to avoid returning a "strange" null / 0 - displayed at client
+                // Ready for updating more than once without leaving the form
+                post.Id = id;
+
                 return Ok(post);
             }
             catch (AppException ex)
