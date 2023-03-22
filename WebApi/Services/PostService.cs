@@ -19,21 +19,14 @@ namespace WebApi.Services
         Post GetById(int id);
         void Delete(int id);
         Post Create(Post post);
+        void Update(int id, Post post);
     }
 
     // The Interface - ready to be accessed by the controller  
     public class PostService : IPostService
     {
                 
-        // Posts hardcoded for simplicity, store in a db with hashed passwords in production applications
-       /* private List<Post> _posts = new List<Post>
-        {
-            
-             new Post { Id = 1, Title = "This is Title 1", Body = "This is body 1"  },
-             new Post { Id = 1, Title = "This is Title 2", Body = "This is body 2"  }
-        }; */
-
-
+      
         private DataContext _context;
 
         public PostService(DataContext context)
@@ -41,30 +34,44 @@ namespace WebApi.Services
             _context = context;
         }
 
+        // POST
         public Post Create(Post post)
         {
-           // validation of the title
-           // if (string.IsNullOrWhiteSpace(title))
-           //    throw new AppException("Title is required");
-
-           
             _context.Posts.Add(post);
             _context.SaveChanges();
 
             return post;
         }
 
+        // PUT
+        public void Update(int id, Post postParam)
+        {
+            var post = _context.Posts.Find(id);
+
+            if (post == null)
+                throw new AppException("Post not found");
+          
+            // update Post properties
+            post.Title = postParam.Title;
+            post.Body = postParam.Body;
+           
+            _context.Posts.Update(post);
+            _context.SaveChanges();
+        }
+
+        // GET
         public IEnumerable<Post> GetAll()
         {
             return _context.Posts;
         }
 
-
+        // GET
         public Post GetById(int id)
         {
             return _context.Posts.Find(id);
         }
 
+        // DELETE
         public void Delete(int id)
         {
             var post = _context.Posts.Find(id);
@@ -75,9 +82,7 @@ namespace WebApi.Services
             }
         }
 
-       
-
-
+     
     }
 
 

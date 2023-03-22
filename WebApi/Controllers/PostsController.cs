@@ -30,11 +30,10 @@ namespace WebApi.Controllers
             _postService = postService;
         }
 
-        // Only a User with the Admin role is able to create new Users
+       
         [HttpPost("")]
         public IActionResult Create([FromBody]Post post)
         {
-                       
             try
             {
                 // save 
@@ -48,6 +47,21 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody]Post post)
+        {
+            try
+            {
+                // save 
+                _postService.Update(id, post);
+                return Ok(post);
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
+        }
 
         // Returning the List of Posts from the PostService - The Angular Client is sending a http get request 
         [HttpGet]
