@@ -11,7 +11,7 @@ using WebApi.Helpers;
 
 namespace WebApi.Controllers
 {
-    // [Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PostsController : Controller // Could be ControllerBase while Index() is not in use
@@ -68,7 +68,8 @@ namespace WebApi.Controllers
             }
         }
 
-        // Returning the List of Posts from the PostService - The Angular Client is sending a http get request 
+        // Returning the List of Posts from the PostService - The Angular Client is sending a http get request
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -76,6 +77,7 @@ namespace WebApi.Controllers
             return Ok(posts);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
