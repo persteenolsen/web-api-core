@@ -151,7 +151,9 @@ namespace WebApi.Controllers
             {
                 // save 
                 _userService.Update(user, userDto.Password);
-                return Ok();
+
+                // Test: Returning the userDto for better user feedback at the client
+                return Ok(userDto);
             } 
             catch(AppException ex)
             {
