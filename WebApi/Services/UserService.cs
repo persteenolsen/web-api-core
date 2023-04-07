@@ -89,7 +89,7 @@ namespace WebApi.Services
                     throw new AppException("email " + userParam.email + " is already taken");
             }
 
-            // update user properties
+            // Update user properties - ready to be shiped to the client by the controller
             user.Title = userParam.Title;
             user.FirstName = userParam.FirstName;
             user.LastName = userParam.LastName;
