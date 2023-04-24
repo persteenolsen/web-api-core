@@ -96,7 +96,8 @@ namespace WebApi.Controllers
             }
         }
 
-        // Only a User with the Admin role is able to create new Users
+        // Only a User with the Admin role is able to create new Users / valiate by client
+		// Note: Only access for Users login 
         [HttpPost("")]
         public IActionResult Create([FromBody]UserDto userDto)
         {

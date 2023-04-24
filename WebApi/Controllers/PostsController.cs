@@ -50,22 +50,32 @@ namespace WebApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody]Post post)
         {
+
+            // Not needed becuase on error a 400 status + error will be returned to client by IActionResult - default !
+            // The Validation annotation => Entities - Post.cs 
+            // if (! ModelState.IsValid)
+            //     return BadRequest(new { message = "Web API: One or more input values have wrong formats !" });
+            
             try
-            {
-                // save 
-                _postService.Update(id, post);
+                {
 
-                // Make sure to return the id submitted - to avoid returning a "strange" null / 0 - displayed at client
-                // Ready for updating more than once without leaving the form
-                post.Id = id;
+                    // save 
+                    _postService.Update(id, post);
 
-                return Ok(post);
-            }
-            catch (AppException ex)
-            {
-                // return error message if there was an exception
-                return BadRequest(new { message = ex.Message });
-            }
+                    // Make sure to return the id submitted - to avoid returning a "strange" null / 0 - displayed at client
+                    // Ready for updating more than once without leaving the form
+                    post.Id = id;
+
+                    return Ok(post);
+                }
+                catch (AppException ex)
+                {
+                    // return error message if there was an exception
+                    return BadRequest(new { message = ex.Message });
+                }
+           
+            
+
         }
 
         // Returning the List of Posts from the PostService - The Angular Client is sending a http get request
