@@ -27,9 +27,8 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-                       
-           
 
+            
             // Note: For GitHub
             //var connection = @"Data source=yourservername;initial catalog=yourdatabasename;user id=yourusername;password=yourpassword;";
             // services.AddDbContext<DataContext>(options => options.UseSqlServer(connection));
